@@ -1,0 +1,27 @@
+﻿
+@model IQueryable<StarWars.Data.GetCharacterDTO>
+
+    
+    @(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.Name).Titled("Name");
+        columns.Add(model => model.PlanetName).Titled("Planet Name");
+        columns.Add(model => string.Join(",",model.Episodes)).Titled("Episodes");
+        columns.Add(model => string.Join( ",", model.Friends)).Titled("Friends");
+
+    })
+    .Using(GridFilterMode.Header)
+    .Empty("No data found")
+    .Filterable()
+    .Sortable()
+    .Pageable(pager =>
+    {
+    pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 2, "2" }, { 4, "4" } };
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 3;
+        pager.CurrentPage = 2;
+        pager.RowsPerPage = 2;
+    })
+)
